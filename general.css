@@ -1,0 +1,37 @@
+/* general page */
+.general { position: fixed; inset: 0; display: none; overflow: hidden; background: var(--bg); color: var(--ink); }
+html.is-general .general { display: block; }
+html.is-general main, html.is-general nav { display: none; }
+.gname { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font-family: "Alte Haas Grotesk", var(--sans); font-style: normal; font-weight: 700; line-height: .82; letter-spacing: -0.04em; word-spacing: -0.02em; white-space: nowrap; padding-bottom: calc(env(safe-area-inset-bottom, 0px) + .16em); user-select: none; -webkit-user-select: none; }
+.gname span { display: inline-block; }
+.gname span span { transform-origin: 50% 100%; will-change: transform; }
+.strap { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; fill: none; stroke: var(--ink); stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+.home { position: absolute; top: calc(env(safe-area-inset-top, 0px) + clamp(1rem, 2.5vw, 2rem)); left: clamp(1rem, 3vw, 2.5rem); z-index: 2; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 1.5px solid var(--ink); border-radius: 50%; color: var(--ink); text-decoration: none; font: 700 1rem/1 "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.02em; transition: background-color .25s ease, color .25s ease; }
+.home:hover, .home:focus-visible { background: var(--ink); color: var(--bg); outline: none; }
+.more { position: absolute; z-index: 2; top: calc(env(safe-area-inset-top, 0px) + clamp(1rem, 2.5vw, 2rem) + 3.4rem); left: clamp(1rem, 3vw, 2.5rem); display: grid; place-items: center; padding: 0; border: 0; background: transparent; color: var(--ink); cursor: pointer; font: 700 .95rem/1 "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.02em; transition: opacity .25s ease; }
+.more:hover, .more:focus-visible { opacity: .55; outline: none; }
+.home svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.card { --w: min(260px, 62vw); position: absolute; left: 0; top: 0; width: var(--w); aspect-ratio: 5 / 7; font-size: calc(var(--w) / 20); transform-origin: 50% 0; perspective: 1000px; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; outline: none; will-change: transform; }
+.card.grabbing { cursor: grabbing; }
+.card:focus-visible .face { outline: 2px solid var(--ink); outline-offset: 4px; }
+.card-in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.3,.7,.2,1); }
+.card.flipped .card-in { transform: rotateY(180deg); }
+.face { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 1.2em; border: 1.5px solid var(--ink); border-radius: 1.1em; background: var(--card); backface-visibility: hidden; -webkit-backface-visibility: hidden; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+.back { transform: rotateY(180deg); padding: 1.6em; }
+.clip { position: absolute; z-index: 3; top: -1em; left: calc(50% - .8em); width: 1.6em; height: 2.4em; border: 1.5px solid var(--ink); border-radius: .6em; background: var(--bg); }
+.photo { flex: 1; display: grid; place-items: center; border-radius: .6em; background: color-mix(in srgb, var(--ink) 10%, var(--card)); font-family: var(--serif); font-style: italic; font-size: 5em; letter-spacing: -0.04em; overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cname { margin: .5em 0 0; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 2.5em; line-height: .95; letter-spacing: -0.04em; }
+.hint { margin: .9em 0 0; font-size: .8em; opacity: .55; letter-spacing: -0.01em; }
+.back h2 { margin: .6em 0 .5em; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: 3em; line-height: .95; letter-spacing: -0.04em; }
+.back p { margin: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 1.15em; line-height: 1.45; letter-spacing: -0.01em; }
+.back { justify-content: center; }
+
+html.has-3d .face, html.has-3d .clip, html.has-3d .strap { opacity: 0; }
+
+/* sound toggle */
+.theme-toggle.sound-toggle { right: calc(clamp(1rem, 3vw, 2.5rem) + 3.35rem); }
+.sound-toggle .s-off { display: none; }
+html[data-sound="off"] .sound-toggle .s-on { display: none; }
+html[data-sound="off"] .sound-toggle .s-off { display: block; }
+

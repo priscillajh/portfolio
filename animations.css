@@ -1,0 +1,64 @@
+/* entrance into the general page */
+.curtain { position: fixed; inset: 0; z-index: 50; background: var(--ink); pointer-events: none; clip-path: ellipse(0 0 at var(--ox, 75%) var(--oy, 90%)); }
+@media (prefers-reduced-motion: no-preference) {
+  html.is-general main, html.is-general nav { display: flex; animation: gone 0s .5s forwards; }
+  @keyframes gone { to { visibility: hidden; } }
+  html.is-general .general { animation: appear 0s .45s backwards; }
+  @keyframes appear { from { opacity: 0; } }
+  html.is-general .curtain, html.is-about .curtain, html.is-sub .curtain { animation: flood .5s cubic-bezier(.7,0,.84,0) backwards, drain .75s .5s cubic-bezier(.7,0,.2,1) forwards; }
+  @keyframes flood { from { clip-path: ellipse(0 0 at var(--ox, 75%) var(--oy, 90%)); } to { clip-path: ellipse(150vmax 130vmax at var(--ox, 75%) var(--oy, 90%)); } }
+  @keyframes drain { from { clip-path: inset(0); } to { clip-path: inset(0 0 100% 0); } }
+  html.is-general .gname span span { animation: rise 1s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: calc(.6s + var(--i, 0) * 22ms); }
+  @keyframes rise { from { transform: translateY(115%); } }
+  html.is-general .general > canvas { animation: lower 1.2s .85s cubic-bezier(.25,1,.35,1) backwards; }
+  @keyframes lower { from { transform: translateY(-45vh); opacity: 0; } }
+  html.is-general .home, html.is-general .more { animation: appear .5s 1.2s backwards; }
+  html.is-about .general { display: block; animation: gone 0s .5s forwards; }
+  html.is-about .about { animation: appear 0s .45s backwards; }
+  html.is-about .about .home, html.is-about .about .more { animation: appear .5s 1.2s backwards; }
+  /* about: a sideways wipe, then the polaroid drops in and the rest pops and rises */
+  html.is-about .curtain { animation: wipein .5s cubic-bezier(.7,0,.84,0) backwards, wipeout .75s .5s cubic-bezier(.7,0,.2,1) forwards; }
+  @keyframes wipein { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+  @keyframes wipeout { from { clip-path: inset(0); } to { clip-path: inset(0 0 0 100%); } }
+  html.is-about .polaroid { animation: pdrop 1.1s cubic-bezier(.3,1.35,.5,1) .7s backwards; }
+  @keyframes pdrop { from { transform: translateY(-130%) rotate(-16deg); opacity: 0; } 60% { opacity: 1; } }
+  html.is-about .pclip, html.is-about .pstar, html.is-about .spark, html.is-about .tag, html.is-about .arrow { animation: popin .6s cubic-bezier(.3,1.6,.5,1) backwards; animation-delay: 1.5s; }
+  html.is-about .pstar { animation-delay: 1.65s; }
+  html.is-about .spark { animation-delay: 1.8s; }
+  html.is-about .tag-age, html.is-about .arrow { animation-delay: 1.95s; }
+  html.is-about .tag-loc { animation-delay: 2.1s; }
+  @keyframes popin { from { scale: 0; opacity: 0; } }
+  html.is-about .about-col > *, html.is-about .sec { animation: riseup .8s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: 1s; }
+  html.is-about .about-col > :nth-child(2) { animation-delay: 1.12s; }
+  html.is-about .about-col > :nth-child(3) { animation-delay: 1.24s; }
+  html.is-about .about-col > :nth-child(4) { animation-delay: 1.36s; }
+  html.is-about .sec { animation-delay: 1.5s; }
+  @keyframes riseup { from { opacity: 0; translate: 0 28px; } }
+  html.is-sub .general { display: block; animation: gone 0s .5s forwards; }
+  html.is-sub .subpage { animation: appear 0s .45s backwards; }
+  html.is-sub .sub-title { animation: appear .8s .6s backwards; }
+  html.is-sub .sub-text { animation: appear .8s .75s backwards; }
+  html.is-sub .subpage .home, html.is-sub .subpage .more { animation: appear .5s 1.2s backwards; }
+  html.is-sub .proj-head { animation: riseup .8s cubic-bezier(.2,.8,.2,1) 1s backwards; }
+  html.is-sub .proj { animation: riseup .8s cubic-bezier(.2,.8,.2,1) backwards; animation-delay: 1.15s; }
+  html.is-sub .proj:nth-child(2) { animation-delay: 1.3s; }
+  html.is-sub .proj:nth-child(3) { animation-delay: 1.45s; }
+}
+
+/* coming back from about / projects / contact: straight to the lanyard page */
+@media (prefers-reduced-motion: no-preference) {
+  html.back-nav.is-general main, html.back-nav.is-general nav { display: none; animation: none; }
+  html.back-nav.is-general .general { animation: none; }
+  html.back-nav.is-general .curtain { animation: none; }
+  html.back-nav.is-general .gname span span { animation-delay: calc(var(--i, 0) * 22ms); }
+  html.back-nav.is-general .general > canvas { animation-delay: .1s; }
+  html.back-nav.is-general .home, html.back-nav.is-general .more { animation-delay: .5s; }
+}
+
+/* single page-load moment: the name settles in */
+@media (prefers-reduced-motion: no-preference) {
+  h1 { animation: settle 1.1s cubic-bezier(.2,.7,.2,1) both; }
+  .sub { animation: settle 1.1s .12s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes settle { from { opacity: 0; letter-spacing: 0.01em; } to { opacity: 1; } }
+}
+
