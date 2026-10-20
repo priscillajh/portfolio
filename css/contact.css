@@ -1,0 +1,70 @@
+/* contact page: a phone with chat bubbles and a contact card that flips into a message form */
+#contact { --vh: 100vh; --bot: 3.4rem; --tf: 18vw; --tt: calc(env(safe-area-inset-top, 0px) + 5.2rem); --top: calc(var(--tt) + var(--tf) * .8 + 1.1rem); --pw: min(23rem, 88vw, calc((var(--vh) - var(--top) - var(--bot) - env(safe-area-inset-bottom, 0px)) / 2.05)); }
+@supports (height: 100svh) { #contact { --vh: 100svh; } }
+@media (min-width: 900px) { #contact { --tf: min(9vw, 8rem); --tt: calc(env(safe-area-inset-top, 0px) + 1.4rem); --bot: 1.5rem; } }
+/* the big "contact" word sits at the top, above the phone */
+#contact .sub-title { top: var(--tt); bottom: auto; font-size: var(--tf); padding-bottom: 0; }
+#contact .home, #contact .more { z-index: 4; }
+
+.phone { position: absolute; z-index: 2; top: var(--top); left: 0; right: 0; margin: 0 auto; width: var(--pw); height: calc(var(--pw) * 2.05); padding: .42em; font-size: calc(var(--pw) / 20); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; letter-spacing: -0.005em; border-radius: 2.6em; background: var(--ink); box-shadow: 0 1.4em 3.4em rgba(0, 0, 0, .26); }
+#contact .phone { animation: phonein .9s cubic-bezier(.2, .8, .2, 1) .35s backwards; }
+@keyframes phonein { from { opacity: 0; translate: 0 5%; scale: .96; } }
+.ph-screen { position: relative; height: 100%; display: flex; flex-direction: column; overflow: hidden; border-radius: 2.2em; background: var(--card); color: var(--ink); }
+.ph-island { position: absolute; z-index: 3; top: .7em; left: 50%; width: 5.6em; height: 1.55em; translate: -50% 0; border-radius: 99px; background: var(--ink); }
+
+.ph-head { flex: none; display: flex; align-items: center; gap: .7em; padding: 3em 1.1em .7em; border-bottom: 1px solid color-mix(in srgb, var(--ink) 14%, transparent); }
+.ph-av { width: 2.6em; height: 2.6em; border-radius: 50%; object-fit: cover; background: var(--bg); }
+.ph-who { display: flex; flex-direction: column; gap: .15em; line-height: 1.1; }
+.ph-who b { font-weight: 700; font-size: 1.02em; }
+.ph-who small { font-size: .72em; opacity: .6; }
+.ph-who small:not(:empty)::before { content: ""; display: inline-block; width: .55em; height: .55em; margin-right: .45em; border-radius: 50%; background: #34c759; }
+
+.ph-chat { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: .45em; padding: .8em 1em; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 2.4em); mask-image: linear-gradient(to bottom, transparent 0, #000 2.4em); }
+.bub { max-width: 80%; padding: .6em .9em; font-size: .86em; line-height: 1.3; overflow-wrap: anywhere; border-radius: 1.2em; animation: bubin .5s cubic-bezier(.2, .9, .3, 1.25) var(--d, calc(1.1s + var(--i, 0) * .6s)) backwards; }
+.bub.in { align-self: flex-start; border-bottom-left-radius: .35em; transform-origin: 0 100%; background: color-mix(in srgb, var(--ink) 10%, var(--card)); }
+.bub.out { align-self: flex-end; border-bottom-right-radius: .35em; transform-origin: 100% 100%; background: var(--ink); color: var(--card); }
+.phone.static .bub { animation: none; }
+@keyframes bubin { from { opacity: 0; scale: .6; translate: 0 .8em; } }
+
+.cc { position: relative; flex: none; height: 6.4em; margin: .55em .8em .45em; perspective: 60em; transition: height .7s cubic-bezier(.2, .8, .2, 1); }
+.cc.flipped { height: 22.5em; }
+.cc-in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.2, .8, .2, 1); }
+.cc.flipped .cc-in { transform: rotateY(180deg); }
+.cc-face { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; border: 1.5px solid var(--ink); border-radius: 1.4em; background: var(--bg); color: var(--ink); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.cc-front { display: flex; align-items: center; gap: .85em; padding: 0 1em; text-align: left; font: inherit; cursor: pointer; }
+.cc-av { flex: none; width: 3.4em; height: 3.4em; border-radius: 50%; object-fit: cover; background: var(--card); }
+.cc-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .25em; }
+.cc-txt b { font-weight: 700; font-size: 1.02em; line-height: 1.15; }
+.cc-txt small { font-size: .78em; line-height: 1.25; opacity: .65; }
+.cc-ic, .cc-ok, .cc-x svg { fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.cc-ic, .cc-ok { flex: none; box-sizing: content-box; width: 1.15em; height: 1.15em; padding: .6em; border: 1.5px solid var(--ink); border-radius: 50%; transition: background-color .25s ease, color .25s ease; }
+.cc-ok { display: none; background: var(--ink); color: var(--bg); }
+.cc.done .cc-ic { display: none; }
+.cc.done .cc-ok { display: block; }
+.cc-front:hover .cc-ic, .cc-front:focus-visible .cc-ic { background: var(--ink); color: var(--bg); }
+.cc-front:focus-visible, .cc-x:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+.cc-back { transform: rotateY(180deg); display: flex; flex-direction: column; gap: .55em; padding: .9em 1em; overflow-y: auto; }
+.cc-top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: .6em; }
+.cc-top b { font: 700 1.1em/1.1 "Alte Haas Grotesk", var(--sans); letter-spacing: -0.02em; }
+.cc-x { display: grid; place-items: center; width: 1.9em; height: 1.9em; padding: 0; border: 1.5px solid var(--ink); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; transition: background-color .2s ease, color .2s ease; }
+.cc-x:hover { background: var(--ink); color: var(--bg); }
+.cc-x svg { width: 1em; height: 1em; }
+#cc-form { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: .5em; }
+#cc-form input, #cc-form textarea { width: 100%; padding: .55em .75em; border: 1.5px solid var(--ink); border-radius: .8em; background: var(--card); color: inherit; font: 500 max(16px, .9em)/1.3 var(--sans); }
+#cc-form textarea { flex: 1; min-height: 4.4em; resize: none; }
+#cc-form input:focus-visible, #cc-form textarea:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+#cc-form input.bad, #cc-form textarea.bad { border-color: #c0392b; }
+#cc-form .cc-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.cc-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: .7em; }
+.cc-status { flex: 1; margin: 0; min-height: 1.2em; font-size: .74em; line-height: 1.25; opacity: .75; }
+.cc-status.err { color: #c0392b; font-weight: 700; opacity: 1; }
+.cc-send { flex: none; padding: .65em 1.5em; border: 1.5px solid var(--ink); border-radius: 99px; background: var(--ink); color: var(--bg); font: 700 .9em/1 var(--sans); cursor: pointer; transition: opacity .2s ease; }
+.cc-send:hover:not(:disabled) { opacity: .8; }
+.cc-send:disabled { opacity: .45; cursor: default; }
+.ph-bar { flex: none; width: 34%; height: .3em; margin: .3em auto .65em; border-radius: 99px; background: var(--ink); opacity: .85; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cc, .cc-in { transition: none; }
+  .bub, #contact .phone { animation: none; }
+}
