@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="css/projects.css">
 <link rel="stylesheet" href="css/animations.css">
 <link rel="stylesheet" href="css/theme-toggle.css">
+<link rel="stylesheet" href="css/contact.css">
 <link rel="stylesheet" href="css/editor.css">
 <script>
 (function () {
@@ -129,11 +130,46 @@
   <div class="proj-head"><h1>projects</h1><p>personal projects</p></div>
   <div class="proj-grid"><button type="button" class="proj" data-cursor="click to open" aria-label="Open data entry"><span class="proj-h">data<br>entry</span><span class="proj-card"><img alt="data entry project photo" src="assets/projects/cover-data-entry.jpg"></span></button><button type="button" class="proj" data-cursor="click to open" aria-label="Open administrative tasks"><span class="proj-h">administrative<br>tasks</span><span class="proj-card"><img alt="administrative tasks project photo" src="assets/projects/cover-administrative-tasks.jpg"></span></button><button type="button" class="proj" data-cursor="click to open" aria-label="Open email marketing"><span class="proj-h">email<br>marketing</span><span class="proj-card"><img alt="email marketing project photo" src="assets/projects/cover-email-marketing.jpg"></span></button></div>
 </section>
-<!-- CONTACT PAGE (placeholder text for now) -->
+<!-- CONTACT PAGE: a phone with chat bubbles and a flip card that sends a message to your inbox.
+     The bubble text, card text and where messages go live in the "contact-data" block near the end of this file
+     (or edit them with the pencil button, then save). -->
 <section class="subpage" id="contact" aria-label="contact">
   <a class="home" href="#" aria-label="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10M10 19.5v-5h4v5"/></svg></a>
   <a class="more" href="#general">[back]</a>
-  <p class="sub-text">contact details coming soon.</p>
+  <div class="phone" id="phone">
+    <div class="ph-screen">
+      <div class="ph-island" aria-hidden="true"></div>
+      <header class="ph-head">
+        <img class="ph-av" alt="" src="assets/photos/priscilla-avatar.jpg">
+        <span class="ph-who"><b id="ph-name"></b><small id="ph-status"></small></span>
+      </header>
+      <div class="ph-chat" id="ph-chat" role="log" aria-live="polite" aria-label="chat"></div>
+      <div class="cc" id="cc">
+        <div class="cc-in">
+          <button type="button" class="cc-face cc-front" id="cc-open" aria-expanded="false" aria-controls="cc-back" data-cursor="tap to write">
+            <img class="cc-av" alt="" src="assets/photos/priscilla-avatar.jpg">
+            <span class="cc-txt"><b id="cc-title"></b><small id="cc-sub"></small></span>
+            <svg class="cc-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>
+            <svg class="cc-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+          </button>
+          <div class="cc-face cc-back" id="cc-back" role="group" aria-label="write a message" inert>
+            <div class="cc-top"><b id="cc-formtitle">send me a message</b>
+              <button type="button" class="cc-x" id="cc-close" aria-label="Flip the card back" data-cursor="close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+            <form id="cc-form" novalidate autocomplete="on">
+              <input type="text" name="name" placeholder="your name" aria-label="Your name" autocomplete="name" maxlength="80" required>
+              <input type="email" name="email" placeholder="your email" aria-label="Your email" autocomplete="email" maxlength="120" required>
+              <input type="text" name="subject" placeholder="subject" aria-label="Subject" maxlength="120">
+              <textarea name="message" placeholder="your message" aria-label="Your message" rows="3" maxlength="2000" required></textarea>
+              <input type="text" name="botcheck" class="cc-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+              <div class="cc-bar"><p class="cc-status" id="cc-status" role="status" aria-live="polite"></p>
+                <button type="submit" class="cc-send" id="cc-send" data-cursor="send">send</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="ph-bar" aria-hidden="true"></div>
+    </div>
+  </div>
   <div class="sub-title">contact</div>
 </section>
 <div class="deck" id="deck" data-mode="list" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Project details">
@@ -1235,7 +1271,21 @@ addEventListener('hashchange', function (e) {
   };
 })();
 </script>
+<script type="application/json" id="contact-data">{
+ "name": "Priscilla",
+ "status": "online",
+ "bubbles": [
+  { "from": "me", "t": "hi, thanks for stopping by my portfolio!" },
+  { "from": "me", "t": "have a project in mind, or just want to say hello?" },
+  { "from": "visitor", "t": "i'd love to work together" },
+  { "from": "me", "t": "tap the card below and send me a message" }
+ ],
+ "card": { "title": "Priscilla Jefry Hakim", "sub": "tap to write me a message", "done": "message sent, thank you!", "formTitle": "send me a message" },
+ "reply": "got it, thank you! i'll reply to your email soon.",
+ "to": ""
+}</script>
 <script type="application/json" id="edit-config">{"hash":"8be71d342f105a44786ca37017eb3d63f10ad031c324ee3f8e66961eb79c0888"}</script>
+<script src="js/contact.js"></script>
 <script src="js/editor.js"></script>
 </body>
 </html>
